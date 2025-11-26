@@ -22,6 +22,7 @@ int usercount = 0;
 //project function prototype
 void createaccount();
 int login();
+void deposit(int i);
 
 int main()
 {
@@ -51,13 +52,19 @@ int main()
         			//login user menu of project
         			while(1){
         				 printf("\n----- Welcome, %s -----\n", users[user_index].username);
-        				 printf("1. Deposite Money\n");
+        				 printf("1. Deposit Money\n");
         				 printf("2. Withdrawn Money\n");
         				 printf("3. Check Balance\n");
         				 printf("4. Transaction History\n");
         				 printf("5. Logout\n");
         				 printf("Enter your choice: ");
         				 scanf("%d", &option);
+        				 
+        				 switch(option){
+        				 	case 1:
+        				 		deposit(user_index);
+        				 		break;
+						 }
 					}
 				}
 				break;
@@ -113,5 +120,21 @@ int login(){
 	}
 	printf("Invalid username & password, Please try again!\n");
 	return -1;
+}
+
+//3. deposit money
+void deposit(int i){
+	int amt;
+	printf("Enter amount to deposit: ");
+	scanf("%d", &amt);
+	
+	if(amt <= 0){
+		printf("\nInvalid %d amount, please enter amount again!\n", amt);
+		return;
+	} else{
+		users[i].balance+=amt;
+		printf("\nRS %d amount deposited successfully!\n");
+		return;
+	}
 }
 

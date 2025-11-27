@@ -128,6 +128,9 @@ int main(){
 							case 1:
 								admin_displayusers();
 								break;
+							case 2:
+								printf("hello\n");
+								break;
 							case 4:
 								admin_addmoney();
 								break;

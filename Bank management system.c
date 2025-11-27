@@ -36,7 +36,7 @@ void savedata();
 //project function prototype for admin panel
 int admin_login();
 void admin_displayusers();
-
+void admin_addmoney();
 
 int main(){
 	loaddata();
@@ -127,6 +127,9 @@ int main(){
         				switch(admin_opt){
 							case 1:
 								admin_displayusers();
+								break;
+							case 4:
+								admin_addmoney();
 								break;
 							case 5:
 								printf("Enter withdraw amount limit: Rs ");
@@ -421,5 +424,41 @@ void admin_displayusers(){
     }
 
     printf("---------------------------------------------------------------\n");
+}
+
+//12. admin add money
+void admin_addmoney(){
+	char user_n[30];
+	int i, found = -1, add_amt;
+	printf("Enter Username: ");
+	scanf("%29s", user_n);
+	
+	//check usename exit in database or not
+	for(i = 0; i < usercount; i++){
+		if(strcmp(users[i].username, user_n) == 0){
+			found = i;
+			break;
+		}
+	}
+	
+	printf("Enter amount to add: Rs ");
+	scanf("%d", &add_amt);
+	
+	if(add_amt <= 0){
+		printf("Invalid amount! Please enter a positive value.\n");
+		return;
+	}	
+	
+	if(found!=-1){
+		users[found].balance += add_amt;
+		add_transaction(users[found].username, "ADMIN DEPOSIT", add_amt);
+		printf("\nMoney Added Successful!\n");
+		printf("Amount: RS %d\n", add_amt);
+		printf("Updated User Balance: RS %d\n\n", users[found].balance);
+		savedata();
+		return;
+	} else{
+		printf("Invalid username, Please enter correct username!\n");
+	}
 }
 

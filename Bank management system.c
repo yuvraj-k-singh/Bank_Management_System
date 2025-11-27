@@ -484,7 +484,18 @@ void admin_removeuser(){
 		}
 	}
 	
-	//logic for remove user
+	if(found==-1){
+		printf("Invalid username, Please enter correct username!\n");
+		return;
+	}
 	
+	//logic for remove user from database and project
+	for(i = found; i < usercount-1; i++){
+		users[i] = users[i+1];
+	}
+	usercount--;
+	savedata();
 	
+	printf("%s User Removed Successful!\n", s_user);
+	return;
 }

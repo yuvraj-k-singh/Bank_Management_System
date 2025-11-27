@@ -35,10 +35,10 @@ void savedata();
 
 int main(){
 	loaddata();
-	int user_index = -1, choice;
+	int user_index = -1, choice, logout = 0;
 	
 	//main menu of project!
-	while(1){
+	while(logout!=1){
 		printf("\n==========================================\n");
     	printf("           BANK MANAGEMENT SYSTEM\n");
     	printf("==========================================\n");
@@ -60,7 +60,7 @@ int main(){
         			
         			//login user menu of project
         			while(1){
-        				 printf("\n----- Welcome, %s -----\n", users[user_index].username);
+        				 printf("\n------------ Welcome, %s -------------\n", users[user_index].username);
         				 printf("1. Deposit Money\n");
         				 printf("2. Withdrawn Money\n");
         				 printf("3. Check Balance\n");
@@ -87,6 +87,7 @@ int main(){
         				 		printf("Press enter to Logout Account!\n");
 								getch();
 								printf("\nLogging Out.......\nThank You!");
+								logout = 1;
 								break;
 							default:
 								printf("Invalid choice! Please select a number between 1–5.\n");

@@ -93,6 +93,7 @@ int main(){
 								printf("Invalid choice! Please select a number between 1–5.\n");
 						 }
 					}
+					logout = 0;
 				}
 				break;
 			case 3:

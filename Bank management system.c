@@ -85,19 +85,46 @@ int main()
 
 //1. Create user account
 void createaccount(){
+	int i;
+	char uname[30], pword[30];
 	if(usercount >= MAX_USERS){
-		printf("Maximum account limit has been reached, Try again!");
+		printf("Maximum account limit has been reached, Try again!\n");
 		return;
 	}else{
 		printf("\n--- Create New Account ---\n");
 		printf("Enter Username: ");
-		scanf("%29s", users[usercount].username);
+		scanf("%29s", uname);   
+		
+		//check if username is empty or not
+		if(strlen(uname)==0){ 
+			printf("Invalid username, Please try again!\n");
+			return;
+		}
+		
+		// Check duplicate username
+    	for(i = 0; i < usercount; i++) {
+        	if(strcmp(users[i].username, uname) == 0) {
+            	printf("Username already exists! Choose another.\n");
+            	return;
+        	}
+    	}
+		
 		printf("Enter Password: ");
-		scanf("%29s", users[usercount].password);
+		scanf("%29s", pword);   
+		
+		//check if password is empty or not
+		if(strlen(pword)==0){              
+			printf("Invalid password, Please try again!\n");
+			return;
+		}
+		
+		//storing values of users
+		strcpy(users[usercount].username, uname);
+		strcpy(users[usercount].password, pword);
 		users[usercount].balance = 0;
 		usercount++;
-		printf("Acoount created successfully, Please login!\n");
-		return;
+		printf("Account created successfully, Please login!\n");
+		//return;
 	}
 }
 

@@ -140,7 +140,8 @@ int main(){
 								savedata();
 								admin_logout = 1;
 								break;
-							
+							default:
+								printf("Invalid choice! Please select a number between 1–6.\n");
 						}
 					}
 				}

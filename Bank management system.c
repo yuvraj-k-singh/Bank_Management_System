@@ -79,6 +79,13 @@ int main(){
         				 	case 4:
         				 		show_history(users[user_index].username);
         				 		break;
+        				 	case 5:
+        				 		printf("Press enter to Logout Account!\n");
+								getch();
+								printf("\Logging Out.......\nThank You!");
+								return 0;
+							default:
+								printf("Invalid option, Please try again from (1-5) options.\n");
 						 }
 					}
 				}

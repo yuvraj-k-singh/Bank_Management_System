@@ -8,6 +8,8 @@ Developer: Yuvraj Kumar Singh
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
+#include<conio.h>
+
 
 #define MAX_USERS 50
 
@@ -82,10 +84,10 @@ int main(){
         				 	case 5:
         				 		printf("Press enter to Logout Account!\n");
 								getch();
-								printf("\Logging Out.......\nThank You!");
-								return 0;
+								printf("\nLogging Out.......\nThank You!");
+								break;
 							default:
-								printf("Invalid option, Please try again from (1-5) options.\n");
+								printf("Invalid choice! Please select a number between 1–5.\n");
 						 }
 					}
 				}
@@ -162,7 +164,7 @@ int login(){
 	//check & match login details
 	for(i=0; i<usercount; i++){
 		if(strcmp(users[i].username, u) == 0 && strcmp(users[i].password, p) == 0){
-			printf("Account login successfully!\n");
+			printf("\nLogin successful! Welcome %s.\n", users[i].username);
 			return i;
 		}
 	}
@@ -177,13 +179,15 @@ void deposit(int i){
 	scanf("%d", &amt);
 	
 	if(amt <= 0){
-		printf("\nInvalid %d amount, please enter amount again!\n", amt);
+		printf("Invalid amount! Please enter a positive value.\n");
 		return;
 	} else{
 		users[i].balance+=amt;
 		add_transaction(users[i].username, "DEPOSIT", amt);
-		printf("\nRS %d amount deposited successfully!\n", amt);
-		//return;
+		printf("\n? Deposit Successful!\n");
+	printf("Amount: RS %d\n", amt);
+	printf("Updated Balance: RS %d\n\n", users[i].balance);
+
 	}
 }
 

@@ -57,7 +57,7 @@ int main(){
         		user_index = login();
         		if(user_index != -1){
         			int option;
-        			
+        			logout = 0;
         			//login user menu of project
         			while(logout != 1){
         				 printf("\n------------ Welcome, %s -------------\n", users[user_index].username);
@@ -87,13 +87,13 @@ int main(){
         				 		printf("Press enter to Logout Account!\n");
 								getch();
 								printf("\nLogging Out.......\nThank You!\n");
+								savedata();
 								logout = 1;
 								break;
 							default:
 								printf("Invalid choice! Please select a number between 1–5.\n");
 						 }
 					}
-					logout = 0;
 				}
 				break;
 			case 3:

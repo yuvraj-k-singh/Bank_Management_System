@@ -29,6 +29,7 @@ void display_balance(int i);
 void show_history(char username[]);
 void add_transaction(char username[], char type[], int amount);
 void loaddata();
+void savedata();
 
 int main(){
 	loaddata();
@@ -85,7 +86,7 @@ int main(){
 			case 3:
 				printf("Press enter to exit program!\n");
 				getch();
-				//savedata();
+				savedata();
 				printf("\nExiting program.......\nThank You!");
 				return 0;
 			default:
@@ -292,3 +293,23 @@ void loaddata(){
     fclose(fp);
 }
 
+//9. save data
+void savedata(){
+	int i;
+    FILE *fp = fopen("bankdata.txt", "w");
+    if(fp == NULL) {
+        printf("Error saving data!\n");
+        return;
+    }
+
+    fprintf(fp, "%d\n", usercount);
+
+    for(i = 0; i < usercount; i++) {
+        fprintf(fp, "%s %s %d\n",
+                users[i].username,
+                users[i].password,
+                users[i].balance);
+    }
+
+    fclose(fp);
+}

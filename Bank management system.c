@@ -27,9 +27,9 @@ void deposit(int i);
 void withdraw(int i);
 void display_balance(int i);
 void show_history(char username[]);
+void add_transaction(char username[], char type[], int amount);
 
-int main()
-{
+int main(){
 	//loaddata();
 	int user_index = -1, choice;
 	
@@ -95,7 +95,6 @@ int main()
 }
 
 //project function define
-
 //1. Create user account
 void createaccount(){
 	int i;
@@ -173,7 +172,7 @@ void deposit(int i){
 		return;
 	} else{
 		users[i].balance+=amt;
-		//addTransaction(users[i].username, "DEPOSIT", amount);
+		add_transaction(users[i].username, "DEPOSIT", amt);
 		printf("\nRS %d amount deposited successfully!\n");
 		//return;
 	}
@@ -204,7 +203,7 @@ void withdraw(int i){
 	}
 	
 	users[i].balance -= amt;
-	//addTransaction(users[i].username, "WITHDRAW", amount);
+	add_transaction(users[i].username, "WITHDRAW", amt);
 	printf("RS %d withdrawn successfully! \nYour new balance is RS %d.\n", amt, users[i].balance);
 	return;
 }
@@ -239,6 +238,34 @@ void show_history(char username[]){
     }
 
     printf("===============================================\n");
+
+    fclose(fp);
+}
+
+//7. add transaction history
+void add_transaction(char username[], char type[], int amount){
+    char filename[100];
+    sprintf(filename, "%s_history.txt", username);
+
+    FILE *fp = fopen(filename, "a");
+    if(fp == NULL) {
+        printf("Error saving transaction!\n");
+        return;
+    }
+
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+
+    fprintf(fp, "%02d-%02d-%04d  %02d:%02d:%02d  %-10s  %d\n",
+            t->tm_mday,
+            t->tm_mon + 1,
+            t->tm_year + 1900,
+            t->tm_hour,
+            t->tm_min,
+            t->tm_sec,
+            type,
+            amount
+    );
 
     fclose(fp);
 }

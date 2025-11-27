@@ -26,6 +26,7 @@ int login();
 void deposit(int i);
 void withdraw(int i);
 void display_balance(int i);
+void show_history(char username[]);
 
 int main()
 {
@@ -72,6 +73,9 @@ int main()
         				 		break;
         				 	case 3:
         				 		display_balance(user_index);
+        				 		break;
+        				 	case 4:
+        				 		show_history(users[user_index].username);
         				 		break;
 						 }
 					}
@@ -201,7 +205,7 @@ void withdraw(int i){
 	
 	users[i].balance -= amt;
 	//addTransaction(users[i].username, "WITHDRAW", amount);
-	printf("RS %d withdrawn successfully! Your new balance is RS %d.\n", amt, users[i].balance);
+	printf("RS %d withdrawn successfully! \nYour new balance is RS %d.\n", amt, users[i].balance);
 	return;
 }
 
@@ -209,5 +213,33 @@ void withdraw(int i){
 void display_balance(int i){
 	printf("\nYour current balance is: RS %d\n", users[i].balance);
 	return;
+}
+
+//6. Show transaction history
+void show_history(char username[]){
+	char filename[100];
+    sprintf(filename, "%s_history.txt", username);
+
+    FILE *fp = fopen(filename, "r");
+
+    if(fp == NULL) {
+        printf("\nNo transaction history found!\n");
+        return;
+    }
+
+    printf("\n===============================================\n");
+    printf("         TRANSACTION HISTORY (%s)\n", username);
+    printf("===============================================\n");
+    printf("DATE         TIME        TYPE        AMOUNT\n");
+    printf("-----------------------------------------------\n");
+
+    char line[200];
+    while(fgets(line, sizeof(line), fp)) {
+        printf("%s", line);
+    }
+
+    printf("===============================================\n");
+
+    fclose(fp);
 }
 

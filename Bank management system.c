@@ -25,6 +25,7 @@ void createaccount();
 int login();
 void deposit(int i);
 void withdraw(int i);
+void display_balance(int i);
 
 int main()
 {
@@ -69,7 +70,9 @@ int main()
         				 	case 2:
         				 		withdraw(user_index);
         				 		break;
-        				 	
+        				 	case 3:
+        				 		display_balance(user_index);
+        				 		break;
 						 }
 					}
 				}
@@ -180,13 +183,13 @@ void withdraw(int i){
 	
 	//check amt is not smaller than 0
 	if(amt <= 0) {
-        printf("Invalid amount! Amount must be greater than 0.\n");
+        printf("Invalid amount! Amount must be greater than RS 0.\n");
         return;
     }
 	
 	//check withdraw limit
 	if(amt < withdraw_limit){
-		printf("Minimum withdrawal amount is %d, please try again!\n", withdraw_limit);
+		printf("Minimum withdrawal amount is RS %d, please try again!\n", withdraw_limit);
 		return;
 	}
 	
@@ -198,7 +201,13 @@ void withdraw(int i){
 	
 	users[i].balance -= amt;
 	//addTransaction(users[i].username, "WITHDRAW", amount);
-	printf("%d withdrawn successfully! Your new balance is %d.\n", amt, users[i].balance);
+	printf("RS %d withdrawn successfully! Your new balance is RS %d.\n", amt, users[i].balance);
+	return;
+}
+
+//5. Check balance
+void display_balance(int i){
+	printf("\nYour current balance is: RS %d\n", users[i].balance);
 	return;
 }
 

@@ -38,7 +38,7 @@ int main(){
 	int user_index = -1, choice, logout = 0;
 	
 	//main menu of project!
-	while(logout!=1){
+	while(1){
 		printf("\n==========================================\n");
     	printf("           BANK MANAGEMENT SYSTEM\n");
     	printf("==========================================\n");
@@ -59,7 +59,7 @@ int main(){
         			int option;
         			
         			//login user menu of project
-        			while(1){
+        			while(logout != 1){
         				 printf("\n------------ Welcome, %s -------------\n", users[user_index].username);
         				 printf("1. Deposit Money\n");
         				 printf("2. Withdrawn Money\n");
@@ -86,7 +86,7 @@ int main(){
         				 	case 5:
         				 		printf("Press enter to Logout Account!\n");
 								getch();
-								printf("\nLogging Out.......\nThank You!");
+								printf("\nLogging Out.......\nThank You!\n");
 								logout = 1;
 								break;
 							default:

@@ -37,6 +37,7 @@ void savedata();
 int admin_login();
 void admin_displayusers();
 void admin_addmoney();
+void admin_removeuser();
 
 int main(){
 	loaddata();
@@ -129,7 +130,8 @@ int main(){
 								admin_displayusers();
 								break;
 							case 2:
-								printf("hello\n");
+								admin_removeuser();
+								break;
 								break;
 							case 4:
 								admin_addmoney();
@@ -440,6 +442,7 @@ void admin_addmoney(){
 	for(i = 0; i < usercount; i++){
 		if(strcmp(users[i].username, user_n) == 0){
 			found = i;
+			printf("User Founded Successful!\n");
 			break;
 		}
 	}
@@ -465,3 +468,23 @@ void admin_addmoney(){
 	}
 }
 
+//13. admin remove user
+void admin_removeuser(){
+	int i, found = -1;
+	char s_user[30];
+	printf("Enter Username: ");
+	scanf("%29s", s_user);
+	
+	//check usename exit in database or not
+	for(i = 0; i < usercount; i++){
+		if(strcmp(users[i].username, s_user) == 0){
+			found = i;
+			printf("User Founded Successful!\n");
+			break;
+		}
+	}
+	
+	//logic for remove user
+	
+	
+}

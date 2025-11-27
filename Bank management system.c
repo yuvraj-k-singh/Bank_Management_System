@@ -28,9 +28,10 @@ void withdraw(int i);
 void display_balance(int i);
 void show_history(char username[]);
 void add_transaction(char username[], char type[], int amount);
+void loaddata();
 
 int main(){
-	//loaddata();
+	loaddata();
 	int user_index = -1, choice;
 	
 	//main menu of project!
@@ -173,7 +174,7 @@ void deposit(int i){
 	} else{
 		users[i].balance+=amt;
 		add_transaction(users[i].username, "DEPOSIT", amt);
-		printf("\nRS %d amount deposited successfully!\n");
+		printf("\nRS %d amount deposited successfully!\n", amt);
 		//return;
 	}
 }
@@ -266,6 +267,27 @@ void add_transaction(char username[], char type[], int amount){
             type,
             amount
     );
+
+    fclose(fp);
+}
+
+//8. load data
+void loaddata(){
+	int i;
+    FILE *fp = fopen("bankdata.txt", "r");
+    if(fp == NULL) {
+        usercount = 0;
+        return;
+    }
+
+    fscanf(fp, "%d", &usercount);
+
+    for(i = 0; i < usercount; i++) {
+        fscanf(fp, "%s %s %d",
+               users[i].username,
+               users[i].password,
+               &users[i].balance);
+    }
 
     fclose(fp);
 }

@@ -22,7 +22,7 @@ struct account{
 int usercount = 0;
 int withdraw_limit = 0;
 
-//project function prototype
+//project function prototype for users
 void createaccount();
 int login();
 void deposit(int i);
@@ -33,9 +33,12 @@ void add_transaction(char username[], char type[], int amount);
 void loaddata();
 void savedata();
 
+//project function prototype for admin panel
+int admin_login();
+
 int main(){
 	loaddata();
-	int user_index = -1, choice, logout = 0;
+	int user_index = -1, choice, logout = 0, admin_index = -1, admin_logout = 0;
 	
 	//main menu of project!
 	while(1){
@@ -44,7 +47,8 @@ int main(){
     	printf("==========================================\n");
     	printf("1. Create Account\n");
     	printf("2. Login Account\n");
-    	printf("3. Exit\n");
+    	printf("3. Admin Login\n");
+    	printf("4. Exit\n");
     	printf("------------------------------------------\n");
     	printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -97,13 +101,36 @@ int main(){
 				}
 				break;
 			case 3:
+				admin_index = admin_login();
+				
+				//check admin index
+				if(admin_index!=-1){
+					int admin_opt;
+					admin_logout = 0;
+					
+					//admin main menu
+					while(admin_logout!=1){
+						printf("\n------------ Welcome Admin --------------\n");
+        				printf("1. View all Users\n");
+        				printf("2. Delete User\n");
+        				printf("3. Money Transfer\n");
+        				printf("4. Add Money\n");
+        				printf("5. Set Minimum Withdrawal\n");
+        				printf("6. Logout\n");
+        				printf("-------------------------------------------\n");
+        				printf("Enter your choice: ");
+        				scanf("%d", &admin_opt);
+					}
+				}
+				break;
+			case 4:
 				printf("Press enter to exit program!\n");
 				getch();
 				savedata();
 				printf("\nExiting program.......\nThank You!");
 				return 0;
 			default:
-				printf("Invalid choice! Please select a number between 1–3.\n");
+				printf("Invalid choice! Please select a number between 1–4.\n");
 		}
 	}
 	return 0;
@@ -329,4 +356,21 @@ void savedata(){
     }
 
     fclose(fp);
+}
+
+//10. admin login
+admin_login(){
+	char a_user[30], a_pass[30];
+	printf("\n--- Login Admin Account ---\n");
+	printf("Enter Admin Username: ");
+	scanf("%29s", a_user);
+	printf("Enter Admin Password: ");
+	scanf("%29s", a_pass);
+	
+	if(strcmp("admin", a_user) == 0 && strcmp("admin12", a_pass) == 0){
+		printf("\nLogin successful! Welcome %s.\n", a_user);
+		return 1;
+	}
+	printf("Invalid username & password, Please try again!\n");
+	return -1;
 }

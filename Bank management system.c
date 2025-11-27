@@ -18,11 +18,13 @@ struct account{
 }users[MAX_USERS];
 
 int usercount = 0;
+int withdraw_limit = 0;
 
 //project function prototype
 void createaccount();
 int login();
 void deposit(int i);
+void withdraw(int i);
 
 int main()
 {
@@ -64,6 +66,10 @@ int main()
         				 	case 1:
         				 		deposit(user_index);
         				 		break;
+        				 	case 2:
+        				 		withdraw(user_index);
+        				 		break;
+        				 	
 						 }
 					}
 				}
@@ -160,8 +166,39 @@ void deposit(int i){
 		return;
 	} else{
 		users[i].balance+=amt;
+		//addTransaction(users[i].username, "DEPOSIT", amount);
 		printf("\nRS %d amount deposited successfully!\n");
+		//return;
+	}
+}
+
+//4. withdraw money
+void withdraw(int i){
+	int amt;
+	printf("Enter amount to withdraw: ");
+	scanf("%d", &amt);
+	
+	//check amt is not smaller than 0
+	if(amt <= 0) {
+        printf("Invalid amount! Amount must be greater than 0.\n");
+        return;
+    }
+	
+	//check withdraw limit
+	if(amt < withdraw_limit){
+		printf("Minimum withdrawal amount is %d, please try again!\n", withdraw_limit);
 		return;
 	}
+	
+	//check if amt is not greater than user balance
+	if(amt > users[i].balance){
+		printf("Insufficient  balance!\n");
+		return;
+	}
+	
+	users[i].balance -= amt;
+	//addTransaction(users[i].username, "WITHDRAW", amount);
+	printf("%d withdrawn successfully! Your new balance is %d.\n", amt, users[i].balance);
+	return;
 }
 

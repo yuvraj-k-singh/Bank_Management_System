@@ -39,13 +39,14 @@ int main(){
 	
 	//main menu of project!
 	while(1){
-		printf("\n=================================\n");
-        printf("    BANKING MANAGEMENT SYSTEM\n");
-        printf("=================================\n");
-        printf("1. Create Account\n");
-        printf("2. Login Account\n");
-        printf("3. Exit\n");
-        printf("Enter your choice: ");
+		printf("\n==========================================\n");
+    	printf("           BANK MANAGEMENT SYSTEM\n");
+    	printf("==========================================\n");
+    	printf("1. Create Account\n");
+    	printf("2. Login Account\n");
+    	printf("3. Exit\n");
+    	printf("------------------------------------------\n");
+    	printf("Enter your choice: ");
         scanf("%d", &choice);
         
         switch(choice){
@@ -65,6 +66,7 @@ int main(){
         				 printf("3. Check Balance\n");
         				 printf("4. Transaction History\n");
         				 printf("5. Logout\n");
+        				 printf("------------------------------------------\n");
         				 printf("Enter your choice: ");
         				 scanf("%d", &option);
         				 
@@ -99,7 +101,7 @@ int main(){
 				printf("\nExiting program.......\nThank You!");
 				return 0;
 			default:
-				printf("Invalid option, Please try again from (1-3) options.\n");
+				printf("Invalid choice! Please select a number between 1–3.\n");
 		}
 	}
 	return 0;
@@ -184,10 +186,9 @@ void deposit(int i){
 	} else{
 		users[i].balance+=amt;
 		add_transaction(users[i].username, "DEPOSIT", amt);
-		printf("\n? Deposit Successful!\n");
-	printf("Amount: RS %d\n", amt);
-	printf("Updated Balance: RS %d\n\n", users[i].balance);
-
+		printf("\nDeposit Successful!\n");
+		printf("Amount: RS %d\n", amt);
+		printf("Updated Balance: RS %d\n\n", users[i].balance);
 	}
 }
 
@@ -217,7 +218,10 @@ void withdraw(int i){
 	
 	users[i].balance -= amt;
 	add_transaction(users[i].username, "WITHDRAW", amt);
-	printf("RS %d withdrawn successfully! \nYour new balance is RS %d.\n", amt, users[i].balance);
+	printf("\nWithdrawal Successful!\n");
+	printf("Amount: RS %d\n", amt);
+	printf("Remaining Balance: RS %d\n\n", users[i].balance);
+
 	return;
 }
 

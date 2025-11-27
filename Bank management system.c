@@ -35,10 +35,13 @@ void savedata();
 
 //project function prototype for admin panel
 int admin_login();
+void admin_displayusers();
+
 
 int main(){
 	loaddata();
 	int user_index = -1, choice, logout = 0, admin_index = -1, admin_logout = 0;
+	int limit = 0;
 	
 	//main menu of project!
 	while(1){
@@ -120,6 +123,26 @@ int main(){
         				printf("-------------------------------------------\n");
         				printf("Enter your choice: ");
         				scanf("%d", &admin_opt);
+        				
+        				switch(admin_opt){
+							case 1:
+								admin_displayusers();
+								break;
+							case 5:
+								printf("Enter withdraw amount limit: Rs ");
+								scanf("%d", &limit);
+								withdraw_limit = limit;
+								break;
+							case 6:
+								printf("Press enter to Logout Admin!\n");
+								getch();
+								printf("\nAdmin Logging Out.......\nThank You!\n");
+								savedata();
+								admin_logout = 1;
+								break;
+							default:
+								printf("Invalid choice! Please select a number between 1–6.\n");
+						}
 					}
 				}
 				break;
@@ -218,6 +241,7 @@ void deposit(int i){
 		printf("\nDeposit Successful!\n");
 		printf("Amount: RS %d\n", amt);
 		printf("Updated Balance: RS %d\n\n", users[i].balance);
+		savedata();
 	}
 }
 
@@ -250,7 +274,7 @@ void withdraw(int i){
 	printf("\nWithdrawal Successful!\n");
 	printf("Amount: RS %d\n", amt);
 	printf("Remaining Balance: RS %d\n\n", users[i].balance);
-
+	savedata();
 	return;
 }
 
@@ -374,3 +398,28 @@ admin_login(){
 	printf("Invalid username & password, Please try again!\n");
 	return -1;
 }
+
+//11. display all users
+void admin_displayusers(){
+	int i;
+    printf("\n================= USER LIST (ADMIN PANEL) =================\n");
+
+    if(usercount == 0) {
+        printf("No users found!\n");
+        return;
+    }
+
+    printf("\n%-5s %-20s %-20s %-10s\n", "ID", "USERNAME", "PASSWORD", "BALANCE");
+    printf("---------------------------------------------------------------\n");
+
+    for(i = 0; i < usercount; i++) {
+        printf("%-5d %-20s %-20s %-10d\n",
+               i + 1,
+               users[i].username,
+               users[i].password,
+               users[i].balance);
+    }
+
+    printf("---------------------------------------------------------------\n");
+}
+

@@ -557,6 +557,11 @@ void admin_transfermoney(){
 	
 	users[found_s].balance -= s_amt;
 	users[found_r].balance += s_amt;
+	
+	// Record both transactions!
+	add_transaction(users[found_s].username, "TRANSFER_OUT", s_amt);
+	add_transaction(users[found_r].username, "TRANSFER_IN", s_amt);
+	
 	printf("Money Transfered Successful!\n");
 	savedata();
 }

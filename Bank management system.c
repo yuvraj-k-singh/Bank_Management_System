@@ -38,6 +38,7 @@ int admin_login();
 void admin_displayusers();
 void admin_addmoney();
 void admin_removeuser();
+void admin_transfermoney();
 
 int main(){
 	loaddata();
@@ -99,7 +100,7 @@ int main(){
 								logout = 1;
 								break;
 							default:
-								printf("Invalid choice! Please select a number between 1–5.\n");
+								printf("Invalid choice! Please select a number between 1ï¿½5.\n");
 						 }
 					}
 				}
@@ -132,6 +133,8 @@ int main(){
 							case 2:
 								admin_removeuser();
 								break;
+							case 3:
+								admin_transfermoney();
 								break;
 							case 4:
 								admin_addmoney();
@@ -149,7 +152,7 @@ int main(){
 								admin_logout = 1;
 								break;
 							default:
-								printf("Invalid choice! Please select a number between 1–6.\n");
+								printf("Invalid choice! Please select a number between 1ï¿½6.\n");
 						}
 					}
 				}
@@ -161,7 +164,7 @@ int main(){
 				printf("\nExiting program.......\nThank You!");
 				return 0;
 			default:
-				printf("Invalid choice! Please select a number between 1–4.\n");
+				printf("Invalid choice! Please select a number between 1ï¿½4.\n");
 		}
 	}
 	return 0;
@@ -498,4 +501,51 @@ void admin_removeuser(){
 	
 	printf("%s User Removed Successful!\n", s_user);
 	return;
+}
+
+//14. Admin money transfer
+void admin_transfermoney(){
+	int i, found_s, found_r, s_amt;
+	char sender[30], receiver[30];
+	printf("Enter Sender Username: ");
+	scanf("%29s", sender);
+	
+	//check sender username in database
+	for(i = 0; i < usercount; i++){
+		if(strcmp(users[i].username, sender) == 0){
+			printf("Sender Username Verified!\n");
+			found_s = i;
+			break;
+		}
+	}
+	
+	printf("Enter Receiver Username: ");
+	scanf("%29s", receiver);
+	
+	//check receiver username in database
+	for(i = 0; i < usercount; i++){
+		if(strcmp(users[i].username, receiver) == 0){
+			printf("Receiver Username Verified!\n");
+			found_r = i;
+			break;
+		}
+	}
+	
+	printf("Enter amount: Rs ");
+	scanf("%d", &s_amt);
+	
+	if(s_amt <= 0){
+		printf("Invalid amount! Please enter a positive value.\n");
+		return;
+	}
+	
+	if(s_amt > users[found_s].balance){
+		printf("Insufficient  balance!\n");
+		return;
+	}
+	
+	users[found_s].balance -= s_amt;
+	users[found_r].balance += s_amt;
+	printf("Money Transfered Successful!\n");
+	savedata();
 }

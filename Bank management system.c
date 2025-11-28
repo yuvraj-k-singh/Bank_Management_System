@@ -100,7 +100,7 @@ int main(){
 								logout = 1;
 								break;
 							default:
-								printf("Invalid choice! Please select a number between 1�5.\n");
+								printf("Invalid choice! Please select a number between 1-5.\n");
 						 }
 					}
 				}
@@ -152,7 +152,7 @@ int main(){
 								admin_logout = 1;
 								break;
 							default:
-								printf("Invalid choice! Please select a number between 1�6.\n");
+								printf("Invalid choice! Please select a number between 1-6.\n");
 						}
 					}
 				}
@@ -394,7 +394,7 @@ void savedata(){
 }
 
 //10. admin login
-admin_login(){
+int admin_login(){
 	char a_user[30], a_pass[30];
 	printf("\n--- Login Admin Account ---\n");
 	printf("Enter Admin Username: ");

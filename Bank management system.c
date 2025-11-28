@@ -212,6 +212,7 @@ void createaccount(){
 		users[usercount].balance = 0;
 		usercount++;
 		printf("Account created successfully, Please login!\n");
+		savedata();
 		//return;
 	}
 }

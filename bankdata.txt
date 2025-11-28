@@ -1,3 +1,3 @@
 2
-yuvraj test12 425
-vikash v12 0
+yuvraj test12 325
+vikash v12 100

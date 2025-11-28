@@ -469,6 +469,7 @@ void admin_addmoney(){
 	} else{
 		printf("Invalid username, Please enter correct username!\n");
 	}
+	savedata();
 }
 
 //13. admin remove user
@@ -505,7 +506,7 @@ void admin_removeuser(){
 
 //14. Admin money transfer
 void admin_transfermoney(){
-	int i, found_s, found_r, s_amt;
+	int i, found_s = -1, found_r = -1, s_amt;
 	char sender[30], receiver[30];
 	printf("Enter Sender Username: ");
 	scanf("%29s", sender);
@@ -519,6 +520,11 @@ void admin_transfermoney(){
 		}
 	}
 	
+	if(found_s == -1){
+		printf("Sender Username not found, try again!\n");
+		return;
+	}
+	
 	printf("Enter Receiver Username: ");
 	scanf("%29s", receiver);
 	
@@ -529,6 +535,11 @@ void admin_transfermoney(){
 			found_r = i;
 			break;
 		}
+	}
+	
+	if(found_r == -1){
+		printf("Receiver Username not found, try again!\n");
+		return;
 	}
 	
 	printf("Enter amount: Rs ");
